@@ -1,4 +1,4 @@
-import tarotCards from '../data/tarot';
+import tarotCards from '../../data/tarot';
 
 export async function getStaticPaths() {
   const paths = tarotCards.map(card => ({
@@ -63,36 +63,10 @@ export default function CardDetail({ card }) {
           fontSize:'clamp(0.9rem, 2vw, 1rem)',
           color:'#e6d6ff',
           marginBottom:'1.1rem',
-          whiteSpace:'pre-line',
-          textShadow:'0 2px 8px #000a',
-          background:'#18102a55',
-          borderRadius:'8px',
-          padding:'0.7rem 0.5rem',
-          maxWidth:'100%',
-          boxSizing:'border-box',
-          textAlign:'left',
-          lineHeight:1.7
+          textAlign:'center',
+          wordBreak:'break-word'
         }}>{details}</div>
-        <button 
-          onClick={()=>router.back()} 
-          style={{
-            fontSize:'clamp(0.95rem, 2vw, 1.03rem)',
-            padding:'0.5rem 1rem',
-            borderRadius:'7px',
-            background:'linear-gradient(90deg,#bfa67a 60%,#ffe6b8 100%)',
-            color:'#3e3158',
-            border:'none',
-            cursor:'pointer',
-            fontWeight:'bold',
-            boxShadow:'0 2px 8px #0005',
-            letterSpacing:'0.1em',
-            width:'100%',
-            maxWidth:'220px',
-            marginTop:'0.4rem'
-          }}
-        >一覧に戻る</button>
       </div>
     </main>
   );
 }
-
