@@ -1,17 +1,22 @@
-import { useRouter } from 'next/router';
 import tarotCards from '../data/tarot';
 
-export default function CardDetail() {
-  const router = useRouter();
-  const { number } = router.query;
-  const card = tarotCards.find(c => c.number === Number(number));
+export async function getStaticPaths() {
+  const paths = tarotCards.map(card => ({
+    params: { number: card.number.toString() }
+  }));
+  return { paths, fallback: false };
+}
 
+export async function getStaticProps({ params }) {
+  const card = tarotCards.find(c => c.number === Number(params.number)) || null;
+  return { props: { card } };
+}
+
+export default function CardDetail({ card }) {
   if (!card) {
     return <div style={{color:'#fff',padding:'2rem'}}>カードが見つかりません</div>;
   }
-
   const details = card.details || 'このカードの詳細解説は準備中です。';
-
   return (
     <main style={{ minHeight: '100vh', background: 'radial-gradient(ellipse at 50% 30%, #222040 80%, #0a0a1a 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color:'#ffe6b8', fontFamily:'serif', padding:'2vw' }}>
       <div style={{
